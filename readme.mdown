@@ -1,0 +1,13 @@
+# Local Development Environment Servers
+
+## Overview
+
+This is a vagrantfile which sets up multiple servers for local development.  It uses [Ansible](http://ansible.com) for provisioning of services.
+
+## Usage
+
+1. Clone this repository, and cd to it.
+1. Do a `vagrant up` when inside of this folder
+	- will download a machine
+	- will provision all the services for the machine
+
