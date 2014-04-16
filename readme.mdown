@@ -10,4 +10,8 @@ This is a vagrantfile which sets up multiple servers for local development.  It 
 1. Do a `vagrant up` when inside of this folder
 	- will download a machine
 	- will provision all the services for the machine
+1. Potentially do a `vagrant provision apache`
 
+## Notes
+
+SSH: `vagrant ssh apache`
