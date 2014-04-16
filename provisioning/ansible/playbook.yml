@@ -1,0 +1,30 @@
+---
+- hosts: localservers
+  remote_user: vagrant
+  tasks:
+  - name: Ensure Aptitude is updated
+    apt: update_cache=yes
+  - name: Install NodeJS
+    apt: name=nodejs state=present
+    sudo: yes
+  - name: Install NPM
+    apt: name=npm state=present
+    sudo: yes
+
+- hosts: apache
+  remote_user: vagrant
+  tasks:
+  - name: Ensure Apache Installed
+    apt: name=apache2 state=present
+    sudo: yes
+  - name: Ensure PHP module for Apache is Installed
+    apt: name=libapache2-mod-php5 state=present
+  - name: Ensure Apache Started
+    service: name=apache2 state=running enabled=yes
+    sudo: yes
+
+- hosts: nginx
+  remote_user: vagrant
+  tasks:
+  - service: name=nginx state=started enabled=true
+    sudo: yes
