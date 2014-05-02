@@ -1,15 +1,14 @@
 ---
 - hosts: localservers
   remote_user: vagrant
+  sudo: yes
   tasks:
-  - name: Ensure Aptitude is updated
+  - name: Ensure apt-get is updated
     apt: update_cache=yes
   - name: Install NodeJS
     apt: name=nodejs state=present
-    sudo: yes
   - name: Install NPM
     apt: name=npm state=present
-    sudo: yes
   - name: Install CURL
     apt: name=curl state=present
 
@@ -18,26 +17,19 @@
   tasks:
   - name: Ensure Apache Installed
     apt: name=apache2 state=present
-    sudo: yes
 
   - name: Install PHP
     apt: name=php5 state=present
-    sudo: yes
   - name: Install PHP MySQL
     apt: name=php5-mysql state=present
-    sudo: yes
   - name: Install PHP GD
     apt: name=php5-gd state=present
-    sudo: yes
   - name: Install PHP CURL
     apt: name=php5-curl state=present
-    sudo: yes
   - name: Install PHP Mcrypt
     apt: name=php5-mcrypt state=present
-    sudo: yes
   - name: Install APACHE TO PHP MODULE
     apt: name=libapache2-mod-php5 state=present
-    sudo: yes
 
   - name: ENable VHOST Modules
     command: a2enmod vhost_alias headers
@@ -48,13 +40,10 @@
 
   - name: Copy Vhost Definition over
     copy: src=templates/vhosts.conf dest=/etc/apache2/conf.d/vhost.conf
-    sudo: yes
 
 
   - name: Ensure Apache Started
     service: name=apache2 state=running enabled=yes
-    sudo: yes
 
   - name: Restart Apache
     command: apachectl restart
-    sudo: yes
