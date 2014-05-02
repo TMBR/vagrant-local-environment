@@ -17,14 +17,42 @@
   - name: Ensure Apache Installed
     apt: name=apache2 state=present
     sudo: yes
-  - name: Ensure PHP module for Apache is Installed
+
+  - name: Install PHP
+    apt: name=php5 state=present
+    sudo: yes
+  - name: Install PHP MySQL
+    apt: name=php5-mysql state=present
+    sudo: yes
+  - name: Install PHP GD
+    apt: name=php5-gd state=present
+    sudo: yes
+  - name: Install PHP CURL
+    apt: name=php5-curl state=present
+    sudo: yes
+  - name: Install PHP Mcrypt
+    apt: name=php5-mcrypt state=present
+    sudo: yes
+  - name: Install APACHE TO PHP MODULE
     apt: name=libapache2-mod-php5 state=present
+    sudo: yes
+
+  - name: ENable VHOST Modules
+    command: a2enmod vhost_alias headers
+# These can be enabled w/ ansible 1.6
+#    apache2_module: state=present name=vhost
+#    apache2_module: state=present name=headers
+
+
+  - name: Copy Vhost Definition over
+    copy: src=templates/vhosts.conf dest=/etc/apache2/conf.d/vhost.conf
+    sudo: yes
+
+
   - name: Ensure Apache Started
     service: name=apache2 state=running enabled=yes
     sudo: yes
 
-- hosts: nginx
-  remote_user: vagrant
-  tasks:
-  - service: name=nginx state=started enabled=true
+  - name: Restart Apache
+    command: apachectl restart
     sudo: yes
