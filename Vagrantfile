@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Default value: false
   config.ssh.forward_agent = true
 
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
 
   config.vm.provision "ansible" do |ansible|
     ansible.inventory_path = "provisioning/ansible/hosts.yml"
@@ -37,7 +37,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # the path on the guest to mount the folder. And the optional third
     # argument is a set of non-required options.
     #config.vm.synced_folder "../data", "/vagrant_data"
-    machine.vm.synced_folder "~/web", "/web"
+    machine.vm.synced_folder "~/web", "/web", :mount_options => ["dmode=777","fmode=666"]
+    machine.vm.synced_folder "~/mysql-data", "/mysql-data", :mount_options => ["dmode=777","fmode=666"]
   end
 
 

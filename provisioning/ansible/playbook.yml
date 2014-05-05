@@ -11,9 +11,12 @@
     apt: name=npm state=present
   - name: Install CURL
     apt: name=curl state=present
+  - name: Install VIM
+    apt: name=vim state=present
 
 - hosts: apache
   remote_user: vagrant
+  sudo: yes
   tasks:
   - name: Ensure Apache Installed
     apt: name=apache2 state=present
@@ -28,11 +31,11 @@
     apt: name=php5-curl state=present
   - name: Install PHP Mcrypt
     apt: name=php5-mcrypt state=present
-  - name: Install APACHE TO PHP MODULE
-    apt: name=libapache2-mod-php5 state=present
+#  - name: Install APACHE TO PHP MODULE
+#    apt: name=libapache2-mod-php5 state=present
 
-  - name: ENable VHOST Modules
-    command: a2enmod vhost_alias headers
+  - name: Enable Various Apache Modules
+    command: a2enmod auth_basic deflate env expires headers php5 rewrite setenvif vhost_alias
 # These can be enabled w/ ansible 1.6
 #    apache2_module: state=present name=vhost
 #    apache2_module: state=present name=headers
@@ -47,3 +50,54 @@
 
   - name: Restart Apache
     command: apachectl restart
+
+
+
+  - name: Install MySQL Server
+    apt: name=mysql-server state=present
+
+  - name: Copy MySQL AppArmor template over so mysql can use /mysql-data directory
+    sudo: yes
+    copy: src=templates/usr.sbin.mysqld dest=/etc/apparmor.d/usr.sbin.mysqld backup=yes
+
+  - name: Ensure we're using the shared datadir for MySQL
+    sudo: yes
+    lineinfile: dest=/etc/mysql/my.cnf regexp=^datadir line='datadir         = /mysql-data' backup=yes
+
+
+#  - name: Copy over the MySQL template
+#    sudo: yes
+#    copy: src=templates/my.cnf dest=/etc/mysql/my.cnf
+
+#
+#  - name: Use Vagrant User for mysql service
+#    sudo: yes
+#    lineinfile: dest=/etc/my.cnf regexp=^user line='user         = vagrant' backup=yes
+#
+
+  - name: Ensure AppArmor has the latest config file
+    sudo: yes
+    command: /etc/init.d/apparmor reload
+
+  - name: Set MySQL Root Password
+    sudo: yes
+    command: mysqladmin -u root password root
+
+  - name: Ensure MySQL is started and ready to boot when machine does
+    service: name=mysql state=restarted enabled=yes
+
+#  - name: Restart MySQL with new my.cnf file
+#    service: name=mysql state=
+
+# mysql_upgrade
+
+#- hosts: mysql
+#  tasks:
+  # - name: Uninstall MySQL Server
+  #   apt: name=mysql state=absent
+
+  # - name: Install MySQL Server
+  #   apt: name=mysql-server-5.5 state=present
+
+
+
