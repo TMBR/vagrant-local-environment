@@ -7,19 +7,25 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "hashicorp/precise32"
+  #config.vm.box = "hashicorp/precise32"
+  config.vm.box = "chef/centos-6.5"
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
   config.ssh.forward_agent = true
 
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-
+   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.provision "ansible" do |ansible|
-    ansible.inventory_path = "provisioning/ansible/hosts.yml"
-    ansible.playbook = "provisioning/ansible/playbook.yml"
-    ansible.sudo = true
+      ansible.limit = 'all'
+      ansible.inventory_path = "provisioning/ansible/lamp/hosts"
+      ansible.playbook = "provisioning/ansible/lamp/site.yml"
   end
+ 
+  #config.vm.provision "ansible" do |ansible|
+  #  ansible.inventory_path = "provisioning/ansible/hosts.yml"
+  #  ansible.playbook = "provisioning/ansible/playbook.yml"
+  #  ansible.sudo = true
+  #end
 
 
   config.vm.define 'apache' do |machine|

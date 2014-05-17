@@ -1,0 +1,7 @@
+---
+# This task installs the proper vhost to route to /vagrant/html/
+
+- name: Install dynamic vhost
+  copy: src=vhosts.conf dest=/etc/httpd/conf.d owner=root group=root mode=0644
+  notify:
+    - http service state

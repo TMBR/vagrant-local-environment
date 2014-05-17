@@ -1,0 +1,16 @@
+---
+- include: install_phpmods.yml
+- include: install_httpd.yml
+- include: install_vhost.yml
+
+- name: Configure SELinux to allow httpd to connect to remote database
+  seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+  when: sestatus.rc != 0
+
+- name: Install Node.JS
+  yum: pkg=npm state=installed
+
+- name: Install Bower
+  npm: name={{ item }} state=present global=yes
+  with_items:
+  - bower

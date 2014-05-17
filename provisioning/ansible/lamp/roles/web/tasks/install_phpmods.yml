@@ -1,0 +1,52 @@
+---
+
+#set up webtatic repo to get latest php version
+- name: Create the repository for Webtatic
+  copy: src=webtatic.repo dest=/etc/yum.repos.d/webtatic.repo
+
+- name: Create the GPG key for Webtatic
+  copy: src=RPM-GPG-KEY-webtatic-andy dest=/etc/pki/rpm-gpg
+
+# These tasks install php and associated modules
+- name: Install php modules
+  yum: name={{ item }} state=present
+  with_items:
+    - php54w
+    - php54w-mysql
+    - php54w-cli
+    - php54w-common
+    - php54w-mbstring
+    - php54w-pdo
+    - php54w-mysql
+    - php54w-pear
+    - php54w-mcrypt
+    - php54w-pecl-xdebug
+    - php54w-pecl-memcache
+    - php54w-pecl-apc
+    - php54w-process
+    - php54w-xml
+    - phpmyadmin
+  tags:
+    - php
+    - lamp
+  notify:
+    - http service restart
+
+- name: Copy phpMyAdmin conf
+  copy: src=phpMyAdmin.conf dest=/etc/phpMyAdmin/ owner=root group=root mode=0644
+
+- name: Remove phpMyAdmin.conf if it exits
+  file: path=/etc/httpd/conf.d/phpMyAdmin.conf state=absent
+
+- name: Create phpMyAdmin conf symlink
+  file: src=/etc/phpMyAdmin/phpMyAdmin.conf dest=/etc/httpd/conf.d/phpMyAdmin.conf owner=root group=root state=link
+  notify:
+    - http service restart
+
+
+## get composer
+# ######################
+- name: PHP | PHPDev | Install composer
+  shell:
+    curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer
+    creates=/usr/local/bin/composer
