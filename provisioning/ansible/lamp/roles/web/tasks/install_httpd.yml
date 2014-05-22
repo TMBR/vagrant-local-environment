@@ -15,3 +15,8 @@
 #  notify:
 #    - restart iptables
 #    - http service state
+
+- name: Set EnableSendfile to fix caching issues in httpd.conf
+  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp=".*EnableSendfile.*$" line="EnableSendfile off"
+  notify:
+    - http service restart  
