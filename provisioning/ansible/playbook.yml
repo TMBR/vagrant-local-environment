@@ -32,11 +32,10 @@
       - php5-curl
       - php5-mcrypt
 
-#  - name: Install APACHE TO PHP MODULE
-#    apt: name=libapache2-mod-php5 state=present
-
   - name: Enable Various Apache Modules
     command: a2enmod auth_basic deflate env expires headers php5 rewrite setenvif vhost_alias
+
+
 # These can be enabled w/ ansible 1.6
 #    apache2_module: state=present name=vhost
 #    apache2_module: state=present name=headers
@@ -68,35 +67,10 @@
   - name: Copy DB files over to /mysql-data
     command: sudo su -c "cp -na /var/lib/mysql/* /mysql-data/"
 
-#  - name: Copy over the MySQL template
-#    sudo: yes
-#    copy: src=templates/my.cnf dest=/etc/mysql/my.cnf
-
-#
-#  - name: Use Vagrant User for mysql service
-#    sudo: yes
-#    lineinfile: dest=/etc/my.cnf regexp=^user line='user         = vagrant' backup=yes
-#
-
   - name: Ensure AppArmor has the latest config file
     sudo: yes
     command: /etc/init.d/apparmor reload
 
   - name: Ensure MySQL is started and ready to boot when machine does
     service: name=mysql state=restarted enabled=yes
-
-#  - name: Restart MySQL with new my.cnf file
-#    service: name=mysql state=
-
-# mysql_upgrade
-
-#- hosts: mysql
-#  tasks:
-  # - name: Uninstall MySQL Server
-  #   apt: name=mysql state=absent
-
-  # - name: Install MySQL Server
-  #   apt: name=mysql-server-5.5 state=present
-
-
 
