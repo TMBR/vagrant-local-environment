@@ -1,27 +1,30 @@
 ## Host Machine Prerequisites
 
-1) Install Homebrew, Vagrant, and VirtualBox
-2) Install Ansible
+1. Install Homebrew, Vagrant, and VirtualBox
+2. Install Ansible
 
 	brew install ansible
 
 ## Install the Vagrant machine
 
-1) Clone this repo where you'd like to on your host machine (i.e., Mac)
-2) Checkout the master branch
-3) run `vagrant up`.  This will download the OS for your VM if it's not already on your machine, and will provision the new server with the appropriate software / services.
-4) Sometimes the machine will fail the provisioning it needs the initial time it boots.  If so, just run `vagrant provision` and it'll begin to work.
+1. Clone this repo where you'd like to on your host machine (i.e., Mac)
+2. Checkout the master branch
+3. run `vagrant up`.  This will download the OS for your VM if it's not already on your machine, and will provision the new server with the appropriate software / services.
+4. Sometimes the machine will fail the provisioning it needs the initial time it boots.  If so, just run `vagrant provision` and it'll begin to work.
 
 ## How to Use it
 
 ### Import your databases
 
-Because MySQL is being run from a different machine now, you'll need to export your databases and import them into the new server.  If you use Sequel PRO, you can follow instructions below.
+Because MySQL is being run from a different machine now, you'll need to export your databases and import them into the new server.  If you use [Sequel Pro](http://www.sequelpro.com/), you can follow instructions below.
 
 **NOTE:** The credentials for the MySQL server are:
 
 	User: root
 	Pass: (no password)
+
+**NOTE:** Just because this virtual machine is running on your host machine, doesn't mean that you'll connect to it with "localhost".  You'll still need to address it like it was a remote machine -- with IP address: `192.168.111.222`.
+
 
 ### Point your *.dev domains to the new virtual machine
 
