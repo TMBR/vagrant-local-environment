@@ -39,3 +39,6 @@ Real Example:
 
 	~/web/example.dev/html
 
+#### Sequel Pro Instructions
+
+Connecting to your new webserver, your details for the saved connection will look like [this](https://cloudup.com/cSZ7LaS37Tx).
