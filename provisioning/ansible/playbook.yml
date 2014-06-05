@@ -80,10 +80,6 @@
     sudo: yes
     command: /etc/init.d/apparmor reload
 
-  - name: Set MySQL Root Password
-    sudo: yes
-    command: mysqladmin -u root password root
-
   - name: Ensure MySQL is started and ready to boot when machine does
     service: name=mysql state=restarted enabled=yes
 
