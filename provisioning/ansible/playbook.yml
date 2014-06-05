@@ -23,16 +23,15 @@
   - name: Ensure Apache Installed
     apt: name=apache2 state=present
 
-  - name: Install PHP
-    apt: name=php5 state=present
-  - name: Install PHP MySQL
-    apt: name=php5-mysql state=present
-  - name: Install PHP GD
-    apt: name=php5-gd state=present
-  - name: Install PHP CURL
-    apt: name=php5-curl state=present
-  - name: Install PHP Mcrypt
-    apt: name=php5-mcrypt state=present
+  - name: Install PHP and its Modules
+    apt: name={{ item }} state=latest force=yes
+    with_items:
+      - php5
+      - php5-mysql
+      - php5-gd
+      - php5-curl
+      - php5-mcrypt
+
 #  - name: Install APACHE TO PHP MODULE
 #    apt: name=libapache2-mod-php5 state=present
 
