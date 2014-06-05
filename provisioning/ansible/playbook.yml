@@ -65,6 +65,8 @@
     sudo: yes
     lineinfile: dest=/etc/mysql/my.cnf regexp=^datadir line='datadir         = /mysql-data' backup=yes
 
+  - name: Copy DB files over to /mysql-data
+    command: sudo su -c "cp -na /var/lib/mysql/* /mysql-data/"
 
 #  - name: Copy over the MySQL template
 #    sudo: yes
