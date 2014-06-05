@@ -3,6 +3,8 @@
   remote_user: vagrant
   sudo: yes
   tasks:
+  - name: Enable PHP5.4 Repo from Ondrej
+    apt_repository: repo='deb http://ppa.launchpad.net/ondrej/php5-oldstable/ubuntu precise main' state=present
   - name: Ensure apt-get is updated
     apt: update_cache=yes
   - name: Install NodeJS
