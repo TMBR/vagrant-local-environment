@@ -1,17 +1,41 @@
-# Local Development Environment Servers
+## Host Machine Prerequisites
 
-## Overview
+1) Install Homebrew, Vagrant, and VirtualBox
+2) Install Ansible
 
-This is a vagrantfile which sets up multiple servers for local development.  It uses [Ansible](http://ansible.com) for provisioning of services.
+	brew install ansible
 
-## Usage
+## Install the Vagrant machine
 
-1. Clone this repository, and cd to it.
-1. Do a `vagrant up` when inside of this folder
-	- will download a machine
-	- will provision all the services for the machine
-1. Potentially do a `vagrant provision apache`
+1) Clone this repo where you'd like to on your host machine (i.e., Mac)
+2) Checkout the master branch
+3) run `vagrant up`.  This will download the OS for your VM if it's not already on your machine, and will provision the new server with the appropriate software / services.
+4) Sometimes the machine will fail the provisioning it needs the initial time it boots.  If so, just run `vagrant provision` and it'll begin to work.
 
-## Notes
+## How to Use it
 
-SSH: `vagrant ssh apache`
+### Import your databases
+
+Because MySQL is being run from a different machine now, you'll need to export your databases and import them into the new server.  If you use Sequel PRO, you can follow instructions below.
+
+**NOTE:** The credentials for the MySQL server are:
+
+	User: root
+	Pass: (no password)
+
+### Point your *.dev domains to the new virtual machine
+
+Edit your hosts file, and any hosts that should be served from this new server need to change the IP their routed to, to: `192.168.111.222`.
+
+### Webroots
+
+This server looks for webroots to be in the following convention:
+
+	~/web/{foo.dev}/html
+
+Replace the entire {foo.dev} portion with the domain you're requesting.
+
+Real Example:
+
+	~/web/example.dev/html
+
