@@ -60,6 +60,15 @@
     sudo: yes
     copy: src=templates/usr.sbin.mysqld dest=/etc/apparmor.d/usr.sbin.mysqld backup=yes
 
+  - name: Change some of the grub bootloader configs to never prompt for how to boot
+    sudo: yes
+    lineinfile: dest=/etc/default/grub regexp=^GRUB_TIMEOUT line='GRUB_TIMEOUT=0' backup=yes
+
+  - name: Change some of the grub bootloader configs to never prompt for how to boot
+    sudo: yes
+    lineinfile: dest=/etc/default/grub regexp=^GRUB_RECORDFAIL_TIMEOUT line='GRUB_RECORDFAIL_TIMEOUT=0' backup=yes
+
+
   - name: Ensure we're using the shared datadir for MySQL
     sudo: yes
     lineinfile: dest=/etc/mysql/my.cnf regexp=^datadir line='datadir         = /mysql-data' backup=yes
