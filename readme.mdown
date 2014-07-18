@@ -1,9 +1,13 @@
 ## Host Machine Prerequisites
 
-1. Install Homebrew in terminal type : ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+1. Install Homebrew in terminal type : 
+	`ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)";`
+	`brew update`;
+	`brew upgrade`;
 2. Vagrant - version 1.6.3 - http://www.vagrantup.com/downloads.html
 3. VirtualBox - version 4.3.14 - https://www.virtualbox.org/wiki/Downloads
-4. Install Ansible in terminal type :  brew install ansible
+4. Install Ansible in terminal type :
+	`brew install ansible;`
 
 ## Install the Vagrant machine
 
@@ -17,6 +21,10 @@
 ### Import your databases
 
 Because MySQL is being run from a different machine now, you'll need to export your databases and import them into the new server.  If you use [Sequel Pro](http://www.sequelpro.com/), you can follow instructions below.
+
+#### Sequel Pro Instructions
+
+Connecting to your new webserver, your details for the saved connection will look like [this](https://cloudup.com/cSZ7LaS37Tx).
 
 **NOTE:** The credentials for the MySQL server are:
 
@@ -45,6 +53,3 @@ Real Example:
 
 	~/web/example.dev/html
 
-#### Sequel Pro Instructions
-
-Connecting to your new webserver, your details for the saved connection will look like [this](https://cloudup.com/cSZ7LaS37Tx).
