@@ -1,24 +1,33 @@
 ## Host Machine Prerequisites
 
-- Install Homebrew, in terminal type:
+1. Install Homebrew, in terminal type:
 ```bash
 ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)";
 brew update;
 brew upgrade;
 ```
-- Install Ansible in terminal type:
+1. Install Ansible in terminal type:
 ```bash
 brew install ansible;
 ```
-- Install [Vagrant](http://www.vagrantup.com/downloads.html) - at least v1.6.3
-- Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) - at least v4.3.14
+1. Install [Vagrant](http://www.vagrantup.com/downloads.html) - at least v1.6.3
+1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) - at least v4.3.14
 
 ## Install the Vagrant machine
 
 1. Clone this repo where you'd like to on your host machine (i.e., Mac)
-2. Checkout the master branch
-3. CD ontp the clonded directory IE 'web/wp-server" - ls and look for vagrant file - run `vagrant up`.  This will download the OS for your VM if it's not already on your machine, and will provision the new server with the appropriate software / services.
-4. Sometimes the machine will fail the provisioning it needs the initial time it boots.  If so, just run `vagrant provision` and it'll begin to work.
+```bash
+mkdir -p ~/vagrant/;
+cd ~/vagrant/;
+git clone git@github.com:TMBR/vagrant-local-environment.git local;
+```
+1. Checkout the master branch
+```bash
+cd ~/vagrant/local/;
+git checkout master;
+```
+1. Run `vagrant up`.  This will download the OS for your VM if it's not already on your machine, and will provision the new server with the appropriate software and services.
+1. Sometimes the machine will fail the provisioning it needs the initial time it boots.  If so, just run `vagrant provision` and it'll begin to work.
 
 ## How to Use it
 
@@ -41,19 +50,37 @@ Connecting to your new webserver, your details for the saved connection will loo
 ### Point your *.dev domains to the new virtual machine
 
 Edit your hosts file, and any hosts that should be served from this new server need to change the IP their routed to, to: `192.168.111.222`.
-
+```bash
 sudo nano /etc/hosts
 192.168.111.222 agmoil.dev brainfarm.dev
+```
 
 ### Webroots
 
 This server looks for webroots to be in the following convention:
-
-	~/web/{foo.dev}/html
+```
+~/web/{foo.dev}/html
+```
 
 Replace the entire {foo.dev} portion with the domain you're requesting.
 
 Real Example:
+```
+~/web/agmoil.dev/html
+```
 
-	~/web/example.dev/html
+### WP Config Files
 
+Add the following to the top of your wp-config.php file.  **You will only need to change the Database Name**
+
+```php
+define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
+define( 'WP_SITEURL', WP_HOME.'/' );
+
+define( 'DB_NAME', 'tmbr_mykidline' );
+define( 'DB_USER', 'root' );
+define( 'DB_PASSWORD', '' );
+define( 'DB_HOST', 'localhost' );
+define( 'DB_CHARSET', 'utf8' );
+define( 'DB_COLLATE', '' );
+```
