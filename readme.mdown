@@ -1,15 +1,15 @@
 ## Host Machine Prerequisites
 
-1. Install Homebrew, Vagrant, and VirtualBox
-2. Install Ansible
-
-	brew install ansible
+1. Install Homebrew in terminal type : ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+2. Vagrant - version 1.6.3 - http://www.vagrantup.com/downloads.html
+3. VirtualBox - version 4.3.14 - https://www.virtualbox.org/wiki/Downloads
+4. Install Ansible in terminal type :  brew install ansible
 
 ## Install the Vagrant machine
 
 1. Clone this repo where you'd like to on your host machine (i.e., Mac)
 2. Checkout the master branch
-3. run `vagrant up`.  This will download the OS for your VM if it's not already on your machine, and will provision the new server with the appropriate software / services.
+3. CD ontp the clonded directory IE 'web/wp-server" - ls and look for vagrant file - run `vagrant up`.  This will download the OS for your VM if it's not already on your machine, and will provision the new server with the appropriate software / services.
 4. Sometimes the machine will fail the provisioning it needs the initial time it boots.  If so, just run `vagrant provision` and it'll begin to work.
 
 ## How to Use it
@@ -31,7 +31,7 @@ Because MySQL is being run from a different machine now, you'll need to export y
 Edit your hosts file, and any hosts that should be served from this new server need to change the IP their routed to, to: `192.168.111.222`.
 
 sudo nano /etc/hosts
-192.168.111.222 agmoil.dev
+192.168.111.222 agmoil.dev brainfarm.dev
 
 ### Webroots
 
