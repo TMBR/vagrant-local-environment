@@ -30,6 +30,9 @@ Because MySQL is being run from a different machine now, you'll need to export y
 
 Edit your hosts file, and any hosts that should be served from this new server need to change the IP their routed to, to: `192.168.111.222`.
 
+sudo nano /etc/hosts
+192.168.111.1 agmoil.dev
+
 ### Webroots
 
 This server looks for webroots to be in the following convention:
