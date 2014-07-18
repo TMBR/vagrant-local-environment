@@ -1,17 +1,17 @@
 ## Host Machine Prerequisites
 
-1. Install Homebrew, in terminal type:
+- Install Homebrew, in terminal type:
 ```bash
 ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)";
 brew update;
 brew upgrade;
 ```
-1. Vagrant - at least version 1.6.3 - http://www.vagrantup.com/downloads.html
-1. VirtualBox - at least version 4.3.14 - https://www.virtualbox.org/wiki/Downloads
-1. Install Ansible in terminal type:
+- Install Ansible in terminal type:
 ```bash
 brew install ansible;
 ```
+- Install [Vagrant](http://www.vagrantup.com/downloads.html) - at least v1.6.3
+- Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) - at least v4.3.14
 
 ## Install the Vagrant machine
 
