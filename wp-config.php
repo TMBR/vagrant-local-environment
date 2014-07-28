@@ -1,4 +1,6 @@
 <?php
+define('WP_DEBUG', true);
+
 /**
  * The base configurations of the WordPress.
  *
@@ -21,7 +23,7 @@ define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
 define( 'WP_SITEURL', WP_HOME . '/' );
 
 /** The name of the database for WordPress */
-define('DB_NAME', 'tmbr_alces');
+define('DB_NAME', '{YOUR_DB_NAME_HERE -- PREFIX WITH tmbr_');
 
 /** MySQL database username */
 define('DB_USER', 'root');
@@ -85,7 +87,6 @@ define('WPLANG', '');
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', true);
 
 /* That's all, stop editing! Happy blogging. */
 
