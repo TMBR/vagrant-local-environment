@@ -81,5 +81,5 @@
     command: /etc/init.d/apparmor reload
 
   - name: Ensure MySQL is started and ready to boot when machine does
-    service: name=mysql state=restarted enabled=yes
+    service: name=mysql enabled=yes state=restarted
 
