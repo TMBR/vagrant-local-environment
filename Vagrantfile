@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  config.vm.provision "ansible" do |ansible|
+  config.vm.provision "ansible", run: "always" do |ansible|
     ansible.inventory_path = "provisioning/ansible/hosts.yml"
     ansible.playbook = "provisioning/ansible/playbook.yml"
     ansible.sudo = true
