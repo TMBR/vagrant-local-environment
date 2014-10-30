@@ -33,7 +33,7 @@
       - php5-mcrypt
 
   - name: Enable Various Apache Modules
-    command: a2enmod auth_basic deflate env expires headers php5 rewrite setenvif vhost_alias
+    command: a2enmod auth_basic deflate env expires headers info php5 rewrite setenvif vhost_alias
 
 
 # These can be enabled w/ ansible 1.6
